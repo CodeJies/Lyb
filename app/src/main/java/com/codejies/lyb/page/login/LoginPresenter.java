@@ -27,7 +27,7 @@ public class LoginPresenter extends BasePresenter<LoginContact.view> implements 
 
     @Override
     public void login() {
-        model.login(new LoginRequest(view.getPhone(),view.getPassword())).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new BaseObserve<LoginResponse>(new BaseObserve.ResponseListener<LoginResponse>() {
+        model.login(new LoginRequest(view.getPhone(),view.getPassword())).observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io()).subscribe(new BaseObserve<LoginResponse>(new BaseObserve.ResponseListener<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse loginResponse) {
                 Log.e("Login","success:"+loginResponse.toString());
@@ -37,7 +37,7 @@ public class LoginPresenter extends BasePresenter<LoginContact.view> implements 
             @Override
             public void onFail(String error) {
                 Log.e("Login","requestFail:"+error);
-
+                view.showMessage(error);
             }
 
             @Override

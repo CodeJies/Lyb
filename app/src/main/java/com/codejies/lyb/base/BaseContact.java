@@ -7,16 +7,22 @@ import io.reactivex.disposables.Disposable;
  */
 
 public interface BaseContact {
-    interface basePresenter{
+    interface basePresenter {
         void start();
+
         void detach();
+
         void addDisposable(Disposable disposable);
+
         void unDisposable();
     }
 
-    interface baseView{
+    interface baseView {
         void showLoadingView();
+
         void hideLoadingView();
+
+        void showMessage(String message);
     }
 
 }
