@@ -6,9 +6,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+<<<<<<< HEAD
 import android.widget.Toast;
 
 import com.codejies.lyb.dialog.LoadingDialog;
+=======
+import android.view.Window;
+import android.view.WindowManager;
+>>>>>>> faeea73f708318628a7e9ebae47b922b37813c31
 
 import butterknife.ButterKnife;
 
