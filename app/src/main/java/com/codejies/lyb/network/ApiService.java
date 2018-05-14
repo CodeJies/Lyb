@@ -4,6 +4,7 @@ import com.codejies.lyb.bean.BaseResult;
 import com.codejies.lyb.bean.LoginRequest;
 import com.codejies.lyb.bean.LoginResponse;
 import com.codejies.lyb.bean.SplashDataResult;
+import com.codejies.lyb.bean.SplashResponse;
 
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
@@ -24,4 +25,7 @@ public interface ApiService {
 
     @POST("user/login")
     Observable<BaseResult<LoginResponse>> login(@Body LoginRequest info);
+
+    @POST("app/splash")
+    Observable<BaseResult<SplashResponse>> getSplash();
 }

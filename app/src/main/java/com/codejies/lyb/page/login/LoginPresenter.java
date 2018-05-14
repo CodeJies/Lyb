@@ -8,12 +8,6 @@ import com.codejies.lyb.bean.LoginRequest;
 import com.codejies.lyb.bean.LoginResponse;
 import com.codejies.lyb.network.BaseObserve;
 
-import io.reactivex.Scheduler;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
-import io.reactivex.schedulers.Schedulers;
-
 /**
  * Created by Jies on 2018/5/11.
  */
@@ -27,7 +21,7 @@ public class LoginPresenter extends BasePresenter<LoginContact.view> implements 
 
     @Override
     public void login() {
-        model.login(new LoginRequest(view.getPhone(),view.getPassword())).observeOn(Schedulers.io()).subscribeOn(AndroidSchedulers.mainThread()).subscribe(new BaseObserve<LoginResponse>(new BaseObserve.ResponseListener<LoginResponse>() {
+        model.login(new LoginRequest(view.getPhone(),view.getPassword())).compose(this.<BaseResult<LoginResponse>>Schedules()).subscribe(new BaseObserve<LoginResponse>(new BaseObserve.ResponseListener<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse loginResponse) {
                 Log.e("Login","success:"+loginResponse.toString());

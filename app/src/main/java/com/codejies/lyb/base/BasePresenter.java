@@ -2,8 +2,13 @@ package com.codejies.lyb.base;
 
 import android.view.View;
 
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
+import io.reactivex.ObservableTransformer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by Jies on 2018/5/10.
@@ -42,5 +47,14 @@ public abstract class BasePresenter<V extends BaseContact.baseView> implements  
         if(mCompositeDisposable!=null){
             mCompositeDisposable.dispose();
         }
+    }
+
+    protected <T>ObservableTransformer<T,T> Schedules(){
+        return  new ObservableTransformer<T, T>() {
+            @Override
+            public ObservableSource<T> apply(Observable<T> upstream) {
+                return upstream.observeOn(AndroidSchedulers.mainThread()).subscribeOn(Schedulers.io());
+            }
+        };
     }
 }
