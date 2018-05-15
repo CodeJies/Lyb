@@ -1,7 +1,5 @@
 package com.codejies.lyb.base;
 
-import android.view.View;
-
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.ObservableTransformer;

@@ -23,5 +23,7 @@ public interface SplashContact {
     interface View extends BaseContact.baseView{
         void displayPicture(String imageUrl);
         void goNextActivity();
+
+        void setTimerText(String text);
     }
 }

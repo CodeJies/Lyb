@@ -5,6 +5,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.codejies.lyb.R;
@@ -27,7 +28,8 @@ public class LoadingDialog {
         }
 
         public Dialog create() {
-            Dialog loadingDialog = new Dialog(context);
+            Dialog loadingDialog = new Dialog(context,R.style.LoadDialog);
+            loadingDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
             View view = LayoutInflater.from(context).inflate(R.layout.dialog_loading, null);
             loadingDialog.setContentView(view, new FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             return loadingDialog;

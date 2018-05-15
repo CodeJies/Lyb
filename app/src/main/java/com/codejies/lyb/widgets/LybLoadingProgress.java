@@ -18,9 +18,8 @@ public class LybLoadingProgress extends View {
     private RectF oval;
     private int startArc = 0;
     private int endArc = 0;
-
-    private int width, heigth;
-
+    private int[] recyclerColor;
+    private int nowColor=0;
     public LybLoadingProgress(Context context) {
         super(context);
         init();
@@ -37,12 +36,16 @@ public class LybLoadingProgress extends View {
     }
 
     private void init() {
-
+        recyclerColor=new int[4];
+        recyclerColor[1]=Color.BLUE;
+        recyclerColor[2]=Color.GREEN;
+        recyclerColor[0]=Color.YELLOW;
+        recyclerColor[3]=Color.CYAN;
         mPaint = new Paint();
         mPaint.setColor(color == 0 ? Color.BLUE : color);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
-        mPaint.setStrokeWidth(10);
+        mPaint.setStrokeWidth(5);
 
     }
 
@@ -60,18 +63,23 @@ public class LybLoadingProgress extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (endArc < 180) {
-            endArc++;
+            endArc+=8;
             startArc = 0;
         } else if (endArc >= 180 && endArc < 360 && startArc < 360) {
-            startArc++;
-            endArc++;
+            startArc+=5;
+            endArc+=5;
         } else if (endArc >= 360 && startArc < 360) {
             endArc = 360;
-            startArc++;
+            startArc+=3;
         } else if (startArc >= 360) {
             startArc = 0;
             endArc = 0;
+            nowColor++;
+            if(nowColor>3){
+                nowColor=0;
+            }
         }
+        mPaint.setColor(recyclerColor[nowColor]);
         canvas.drawArc(oval, startArc, endArc - startArc, false, mPaint);
         invalidate();
     }

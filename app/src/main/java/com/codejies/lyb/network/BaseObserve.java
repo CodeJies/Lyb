@@ -22,7 +22,7 @@ public class BaseObserve<T> implements Observer<BaseResult<T>> {
 
     @Override
     public void onSubscribe(Disposable d) {
-        responseListener.onLoading();
+        responseListener.onLoading(d);
     }
 
     @Override
@@ -50,6 +50,6 @@ public class BaseObserve<T> implements Observer<BaseResult<T>> {
 
         void onFail(String error);
 
-        void onLoading();
+        void onLoading(Disposable d);
     }
 }
