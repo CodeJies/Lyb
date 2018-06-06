@@ -29,9 +29,9 @@ public abstract class BaseActivity<P extends BaseContact.basePresenter> extends 
         setContentView(setLayoutId());
         context = this;
         presenter = initPresenter();
-        initView();
         initBaseView();
         ButterKnife.bind(this);
+        initView();
     }
 
 

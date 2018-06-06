@@ -1,3 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="LybEditText">
+        <attr name="type">
+            <enum name="phone" value="0" />
+            <enum name="password" value="1" />
+        </attr>
+    </declare-styleable>
 </resources>

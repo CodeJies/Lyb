@@ -1,6 +1,7 @@
 package com.codejies.lyb.page.splash;
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,6 +11,7 @@ import com.codejies.lyb.base.BaseActivity;
 import com.codejies.lyb.page.login.LoginActivity;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Jies on 2018/5/10.
@@ -42,6 +44,7 @@ public class SplashActivity  extends BaseActivity<SplashContact.Presenter> imple
         Intent intent = new Intent();
         intent.setClass(SplashActivity.this, LoginActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override
@@ -52,5 +55,10 @@ public class SplashActivity  extends BaseActivity<SplashContact.Presenter> imple
     @Override
     protected int setLayoutId() {
         return R.layout.activity_splash;
+    }
+
+    @OnClick({R.id.splash_timer})
+    public void Onclick(View view) {
+        goNextActivity();
     }
 }

@@ -42,7 +42,6 @@ public class LybLoadingProgress extends View {
         recyclerColor[0]=Color.YELLOW;
         recyclerColor[3]=Color.CYAN;
         mPaint = new Paint();
-        mPaint.setColor(color == 0 ? Color.BLUE : color);
         mPaint.setAntiAlias(true);
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(5);
@@ -63,14 +62,14 @@ public class LybLoadingProgress extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (endArc < 180) {
-            endArc+=8;
+            endArc+=10;
             startArc = 0;
         } else if (endArc >= 180 && endArc < 360 && startArc < 360) {
-            startArc+=5;
-            endArc+=5;
+            startArc+=8;
+            endArc+=8;
         } else if (endArc >= 360 && startArc < 360) {
             endArc = 360;
-            startArc+=3;
+            startArc+=5;
         } else if (startArc >= 360) {
             startArc = 0;
             endArc = 0;
