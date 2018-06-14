@@ -10,6 +10,7 @@ import com.codejies.lyb.base.BaseActivity;
 import com.codejies.lyb.widgets.LybEditText;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Created by Jies on 2018/6/6.
@@ -44,7 +45,6 @@ public class RegisterActivity extends BaseActivity<RegisterContact.RegisterPrese
                 showTips(error);
                 isPasswordTrue=false;
             }
-
             @Override
             public void vaildSuccess() {
                 isPasswordTrue=true;
@@ -52,6 +52,8 @@ public class RegisterActivity extends BaseActivity<RegisterContact.RegisterPrese
                 btn_commit.setEnabled(isPasswordTrue&&isPhoneTrue?true:false);
             }
         });
+
+
         et_phone.setChangeErrorListener(new LybEditText.onTextChangeErrorListener() {
             @Override
             public void sendErrorMsg(String error) {
@@ -88,6 +90,14 @@ public class RegisterActivity extends BaseActivity<RegisterContact.RegisterPrese
             tv_tips.setVisibility(View.VISIBLE);
             tv_tips.setText(text);
         }
+    }
 
+    @OnClick(R.id.register_commit)
+    public void onClick(View view){
+        switch (view.getId()){
+            case R.id.register_commit:
+                presenter.Register();
+                break;
+        }
     }
 }

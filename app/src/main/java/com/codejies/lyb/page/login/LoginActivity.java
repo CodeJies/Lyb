@@ -1,12 +1,14 @@
 package com.codejies.lyb.page.login;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.view.View;
 import android.widget.EditText;
 
 import com.codejies.lyb.R;
 import com.codejies.lyb.base.BaseActivity;
 import com.codejies.lyb.page.register.RegisterActivity;
+import com.codejies.lyb.utils.KeyboardUtil;
 import com.codejies.lyb.utils.StringUtils;
 
 import butterknife.BindView;
@@ -21,6 +23,9 @@ public class LoginActivity extends BaseActivity<LoginContact.presenter> implemen
     EditText et_phone;
     @BindView(R.id.login_password)
     EditText et_password;
+    @BindView(R.id.root)
+    ConstraintLayout root;
+    KeyboardUtil mkeyboardUtils;
     @Override
     protected LoginContact.presenter initPresenter() {
         return new LoginPresenter(this);
@@ -28,7 +33,7 @@ public class LoginActivity extends BaseActivity<LoginContact.presenter> implemen
 
     @Override
     protected void initView() {
-
+        mkeyboardUtils = new KeyboardUtil(this, root,et_password);
     }
 
     @Override
@@ -57,6 +62,16 @@ public class LoginActivity extends BaseActivity<LoginContact.presenter> implemen
                 intent.setClass(this, RegisterActivity.class);
                 startActivity(intent);
                 break;
+        }
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if(mkeyboardUtils.isKeyboardShow()){
+            mkeyboardUtils.hideKeyboard();
+        }else{
+            super.onBackPressed();
         }
     }
 }

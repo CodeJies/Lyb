@@ -3,6 +3,8 @@ package com.codejies.lyb.network;
 import com.codejies.lyb.bean.BaseResult;
 import com.codejies.lyb.bean.LoginRequest;
 import com.codejies.lyb.bean.LoginResponse;
+import com.codejies.lyb.bean.RegisterRequest;
+import com.codejies.lyb.bean.RegisterResponse;
 import com.codejies.lyb.bean.SplashDataResult;
 import com.codejies.lyb.bean.SplashResponse;
 
@@ -19,9 +21,8 @@ import retrofit2.http.Query;
 
 public interface ApiService {
 
-    @FormUrlEncoded
-    @POST("user/login")
-    Observable<BaseResult<SplashDataResult>> getSplashData();
+    @POST("user/register")
+    Observable<BaseResult<RegisterResponse>> register(@Body RegisterRequest info);
 
     @POST("user/login")
     Observable<BaseResult<LoginResponse>> login(@Body LoginRequest info);

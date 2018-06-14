@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/root"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -49,4 +50,24 @@
         android:text="注册"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_password" />
+
+    <android.inputmethodservice.KeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/color_white"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@android:color/transparent"
+        android:keyPreviewHeight="0dp"
+        android:keyTextColor="@color/color_dark"
+        android:keyTextSize="@dimen/font_size_medium"
+        android:shadowColor="@null"
+        android:shadowRadius="0.0"
+
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"></android.inputmethodservice.KeyboardView>
 </android.support.constraint.ConstraintLayout>

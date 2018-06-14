@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--键盘相关配置-->
+    <dimen name="keyboard_key_height">60dp</dimen>
+    <dimen name="keyboard_horizontal_gap">0dp</dimen>
+    <dimen name="keyboard_vertical_gap">0dp</dimen>
+    <dimen name="keyboard_font_size">18sp</dimen>
+
+    <dimen name="font_size_small">10sp</dimen>
+    <dimen name="font_size_medium">14sp</dimen>
+    <dimen name="font_size_large">15sp</dimen>
+    <dimen name="font_size_xlarge">23sp</dimen>
+</resources>

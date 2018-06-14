@@ -26,7 +26,10 @@ public class LybEditText extends android.support.v7.widget.AppCompatEditText imp
     }
 
     public LybEditText(Context context, AttributeSet attrs) {
-        this(context, attrs,attrs.getStyleAttribute());
+        super(context,attrs);
+        TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.LybEditText);
+        type = typedArray.getInt(R.styleable.LybEditText_type, 0);
+        typedArray.recycle();
     }
 
     public LybEditText(Context context, AttributeSet attrs, int defStyleAttr) {
