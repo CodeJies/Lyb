@@ -1,6 +1,9 @@
 package com.codejies.lyb.page.splash;
 
 import android.content.Intent;
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,6 +25,12 @@ public class SplashActivity  extends BaseActivity<SplashContact.Presenter> imple
     ImageView splashImage;
     @BindView(R.id.splash_timer)
     TextView splashTimer;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_splash);
+    }
     @Override
     protected SplashContact.Presenter initPresenter() {
         return new SplashPresenter(this);
@@ -52,10 +61,6 @@ public class SplashActivity  extends BaseActivity<SplashContact.Presenter> imple
         splashTimer.setText(text);
     }
 
-    @Override
-    protected int setLayoutId() {
-        return R.layout.activity_splash;
-    }
 
     @OnClick({R.id.splash_timer})
     public void Onclick(View view) {

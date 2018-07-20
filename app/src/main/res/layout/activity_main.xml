@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codejies.lyb.page.MainActivity">
+    tools:context="com.codejies.lyb.page.home.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,5 +14,9 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+    <com.codejies.lybwidget.widget.LybRecycleView
+        android:id="@+id/main_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></com.codejies.lybwidget.widget.LybRecycleView>
 
 </android.support.constraint.ConstraintLayout>

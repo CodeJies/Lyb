@@ -17,7 +17,7 @@ public class LybEditText extends android.support.v7.widget.AppCompatEditText imp
     private static final int TYPE_PHONE = 0;
     private static final int TYPE_PASSWORD = 1;
 
-    private int type;
+    private int type;//EditText的类型 example 手机格式/密码格式
 
     private onTextChangeErrorListener ErrorListener;
 

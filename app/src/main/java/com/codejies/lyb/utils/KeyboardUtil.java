@@ -14,12 +14,9 @@ import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-
 
 import com.codejies.lyb.R;
 
@@ -46,11 +43,22 @@ public class KeyboardUtil {
 
     private EditText ed;
 
+    private boolean isRandom;
+
+    public KeyboardUtil(final Activity activity, View parentView, EditText edit,boolean isRandom) {
+        this.isRandom=isRandom;
+        initKeyBoardUtil(activity,parentView,edit);
+    }
+
     public KeyboardUtil(final Activity activity, View parentView, EditText edit) {
+        this.isRandom=false;
+        initKeyBoardUtil(activity,parentView,edit);
+    }
+
+    private void initKeyBoardUtil(final Activity activity, View parentView, EditText edit){
         this.mActivity = activity;
         this.mContext = activity;
         mVibrator = (Vibrator) activity.getSystemService(Context.VIBRATOR_SERVICE);
-
         this.ed = edit;
         keyAlp = new Keyboard(mContext, R.xml.keyboard_qwerty);
         keyDig = new Keyboard(mContext, R.xml.keyboard_symbols);
@@ -202,7 +210,7 @@ public class KeyboardUtil {
             }
         }
     }
-//展示键盘
+    //展示键盘
     public void showKeyboard() {
         InputMethodManager imm = (InputMethodManager) mActivity.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(this.ed.getWindowToken(), 0);
@@ -212,7 +220,7 @@ public class KeyboardUtil {
             keyboardView.setVisibility(View.VISIBLE);
         }
     }
-//隐藏键盘
+    //隐藏键盘
     public void hideKeyboard() {
         int visibility = keyboardView.getVisibility();
         if (visibility == View.VISIBLE) {
@@ -220,11 +228,11 @@ public class KeyboardUtil {
             keyboardView.setVisibility(View.INVISIBLE);
         }
     }
-//判断键盘是不是处于展示状态
+    //判断键盘是不是处于展示状态
     public boolean isKeyboardShow(){
         return keyboardView.getVisibility()==View.VISIBLE?true:false;
     }
-//判断传入的字符是不是数字跟.与,
+    //判断传入的字符是不是数字跟.与,
     private boolean isNumber(String str) {
         String wordstr = "0123456789.,";
         if (wordstr.indexOf(str) > -1) {
@@ -251,77 +259,81 @@ public class KeyboardUtil {
     }
     //乱序数字键盘
     private void randomdigkey() {
+
         List<Key> keyList = keyDig.getKeys();
         // 查找出0-9的数字键
-        List<Key> newkeyList = new ArrayList<Key>();
-        for (int i = 0; i < keyList.size(); i++) {
-            if (keyList.get(i).label != null
-                    && isNumber(keyList.get(i).label.toString())) {
-                newkeyList.add(keyList.get(i));
+        if(isRandom){
+            List<Key> newkeyList = new ArrayList<Key>();
+            for (int i = 0; i < keyList.size(); i++) {
+                if (keyList.get(i).label != null
+                        && isNumber(keyList.get(i).label.toString())) {
+                    newkeyList.add(keyList.get(i));
+                }
+            }
+            // 数组长度
+            int count = newkeyList.size();
+            // 结果集
+            List<KeyModel> resultList = new ArrayList<KeyModel>();
+            // 用一个LinkedList作为中介
+            LinkedList<KeyModel> temp = new LinkedList<KeyModel>();
+            // 初始化temp
+            for (int i = 0; i < count - 2; i++) {
+                temp.add(new KeyModel(48 + i, i + ""));
+            }
+            temp.add(new KeyModel(44, "" + (char) 44));
+            temp.add(new KeyModel(46, "" + (char) 46));
+            // 取数
+            Random rand = new Random();
+            for (int i = 0; i < count; i++) {
+                int num = rand.nextInt(count - i);
+                resultList.add(new KeyModel(temp.get(num).getCode(), temp.get(num)
+                        .getLable()));
+                temp.remove(num);
+            }
+            for (int i = 0; i < newkeyList.size(); i++) {
+                newkeyList.get(i).label = resultList.get(i).getLable();
+                newkeyList.get(i).codes[0] = resultList.get(i).getCode();
             }
         }
-        // 数组长度
-        int count = newkeyList.size();
-        // 结果集
-        List<KeyModel> resultList = new ArrayList<KeyModel>();
-        // 用一个LinkedList作为中介
-        LinkedList<KeyModel> temp = new LinkedList<KeyModel>();
-        // 初始化temp
-        for (int i = 0; i < count - 2; i++) {
-            temp.add(new KeyModel(48 + i, i + ""));
-        }
-        temp.add(new KeyModel(44, "" + (char) 44));
-        temp.add(new KeyModel(46, "" + (char) 46));
-        // 取数
-        Random rand = new Random();
-        for (int i = 0; i < count; i++) {
-            int num = rand.nextInt(count - i);
-            resultList.add(new KeyModel(temp.get(num).getCode(), temp.get(num)
-                    .getLable()));
-            temp.remove(num);
-        }
-        for (int i = 0; i < newkeyList.size(); i++) {
-            newkeyList.get(i).label = resultList.get(i).getLable();
-            newkeyList.get(i).codes[0] = resultList.get(i).getCode();
-        }
-
         keyboardView.setKeyboard(keyDig);
     }
     //乱序字母键盘
     private void randomalpkey() {
+
         List<Key> keyList = keyAlp.getKeys();
-        // 查找出a-z的数字键
-        List<Key> newkeyList = new ArrayList<Key>();
-        for (int i = 0; i < keyList.size(); i++) {
-            if (keyList.get(i).label != null
-                    && isword(keyList.get(i).label.toString())) {
-                newkeyList.add(keyList.get(i));
+        if(isRandom) {
+            // 查找出a-z的数字键
+            List<Key> newkeyList = new ArrayList<Key>();
+            for (int i = 0; i < keyList.size(); i++) {
+                if (keyList.get(i).label != null
+                        && isword(keyList.get(i).label.toString())) {
+                    newkeyList.add(keyList.get(i));
+                }
+            }
+            // 数组长度
+            int count = newkeyList.size();
+            // 结果集
+            List<KeyModel> resultList = new ArrayList<KeyModel>();
+            // 用一个LinkedList作为中介
+            LinkedList<KeyModel> temp = new LinkedList<KeyModel>();
+            // 初始化temp
+            for (int i = 0; i < count; i++) {
+                temp.add(new KeyModel(97 + i, "" + (char) (97 + i)));
+            }
+            //temp.add(new KeyModel(64, "" + (char) 64));
+            // 取数
+            Random rand = new Random();
+            for (int i = 0; i < count; i++) {
+                int num = rand.nextInt(count - i);
+                resultList.add(new KeyModel(temp.get(num).getCode(), temp.get(num)
+                        .getLable()));
+                temp.remove(num);
+            }
+            for (int i = 0; i < newkeyList.size(); i++) {
+                newkeyList.get(i).label = resultList.get(i).getLable();
+                newkeyList.get(i).codes[0] = resultList.get(i).getCode();
             }
         }
-        // 数组长度
-        int count = newkeyList.size();
-        // 结果集
-        List<KeyModel> resultList = new ArrayList<KeyModel>();
-        // 用一个LinkedList作为中介
-        LinkedList<KeyModel> temp = new LinkedList<KeyModel>();
-        // 初始化temp
-        for (int i = 0; i < count; i++) {
-            temp.add(new KeyModel(97 + i, "" + (char) (97 + i)));
-        }
-        //temp.add(new KeyModel(64, "" + (char) 64));
-        // 取数
-        Random rand = new Random();
-        for (int i = 0; i < count; i++) {
-            int num = rand.nextInt(count - i);
-            resultList.add(new KeyModel(temp.get(num).getCode(), temp.get(num)
-                    .getLable()));
-            temp.remove(num);
-        }
-        for (int i = 0; i < newkeyList.size(); i++) {
-            newkeyList.get(i).label = resultList.get(i).getLable();
-            newkeyList.get(i).codes[0] = resultList.get(i).getCode();
-        }
-
         keyboardView.setKeyboard(keyAlp);
     }
 
@@ -330,67 +342,67 @@ public class KeyboardUtil {
      */
     private void randomInterpunctionkey() {
         List<Key> keyList = keyPun.getKeys();
+        if(isRandom) {
+            // 查找出标点符号的数字键
+            List<Key> newkeyList = new ArrayList<Key>();
+            for (int i = 0; i < keyList.size(); i++) {
+                if (keyList.get(i).label != null
+                        && isInterpunction(keyList.get(i).label.toString())) {
+                    newkeyList.add(keyList.get(i));
+                }
+            }
+            // 数组长度
+            int count = newkeyList.size();
+            // 结果集
+            List<KeyModel> resultList = new ArrayList<KeyModel>();
+            // 用一个LinkedList作为中介
+            LinkedList<KeyModel> temp = new LinkedList<KeyModel>();
 
-        // 查找出标点符号的数字键
-        List<Key> newkeyList = new ArrayList<Key>();
-        for (int i = 0; i < keyList.size(); i++) {
-            if (keyList.get(i).label != null
-                    && isInterpunction(keyList.get(i).label.toString())) {
-                newkeyList.add(keyList.get(i));
+            // 初始化temp
+            temp.add(new KeyModel(33, "" + (char) 33));
+            temp.add(new KeyModel(34, "" + (char) 34));
+            temp.add(new KeyModel(35, "" + (char) 35));
+            temp.add(new KeyModel(36, "" + (char) 36));
+            temp.add(new KeyModel(37, "" + (char) 37));
+            temp.add(new KeyModel(38, "" + (char) 38));
+            temp.add(new KeyModel(39, "" + (char) 39));
+            temp.add(new KeyModel(40, "" + (char) 40));
+            temp.add(new KeyModel(41, "" + (char) 41));
+            temp.add(new KeyModel(42, "" + (char) 42));
+            temp.add(new KeyModel(43, "" + (char) 43));
+            temp.add(new KeyModel(45, "" + (char) 45));
+            temp.add(new KeyModel(47, "" + (char) 47));
+            temp.add(new KeyModel(58, "" + (char) 58));
+            temp.add(new KeyModel(59, "" + (char) 59));
+            temp.add(new KeyModel(60, "" + (char) 60));
+            temp.add(new KeyModel(61, "" + (char) 61));
+            temp.add(new KeyModel(62, "" + (char) 62));
+            temp.add(new KeyModel(63, "" + (char) 63));
+            temp.add(new KeyModel(64, "" + (char) 64));
+            temp.add(new KeyModel(91, "" + (char) 91));
+            temp.add(new KeyModel(92, "" + (char) 92));
+            temp.add(new KeyModel(93, "" + (char) 93));
+            temp.add(new KeyModel(94, "" + (char) 94));
+            temp.add(new KeyModel(95, "" + (char) 95));
+            temp.add(new KeyModel(96, "" + (char) 96));
+            temp.add(new KeyModel(123, "" + (char) 123));
+            temp.add(new KeyModel(124, "" + (char) 124));
+            temp.add(new KeyModel(125, "" + (char) 125));
+            temp.add(new KeyModel(126, "" + (char) 126));
+
+            // 取数
+            Random rand = new Random();
+            for (int i = 0; i < count; i++) {
+                int num = rand.nextInt(count - i);
+                resultList.add(new KeyModel(temp.get(num).getCode(), temp.get(num)
+                        .getLable()));
+                temp.remove(num);
+            }
+            for (int i = 0; i < newkeyList.size(); i++) {
+                newkeyList.get(i).label = resultList.get(i).getLable();
+                newkeyList.get(i).codes[0] = resultList.get(i).getCode();
             }
         }
-        // 数组长度
-        int count = newkeyList.size();
-        // 结果集
-        List<KeyModel> resultList = new ArrayList<KeyModel>();
-        // 用一个LinkedList作为中介
-        LinkedList<KeyModel> temp = new LinkedList<KeyModel>();
-
-        // 初始化temp
-        temp.add(new KeyModel(33, "" + (char) 33));
-        temp.add(new KeyModel(34, "" + (char) 34));
-        temp.add(new KeyModel(35, "" + (char) 35));
-        temp.add(new KeyModel(36, "" + (char) 36));
-        temp.add(new KeyModel(37, "" + (char) 37));
-        temp.add(new KeyModel(38, "" + (char) 38));
-        temp.add(new KeyModel(39, "" + (char) 39));
-        temp.add(new KeyModel(40, "" + (char) 40));
-        temp.add(new KeyModel(41, "" + (char) 41));
-        temp.add(new KeyModel(42, "" + (char) 42));
-        temp.add(new KeyModel(43, "" + (char) 43));
-        temp.add(new KeyModel(45, "" + (char) 45));
-        temp.add(new KeyModel(47, "" + (char) 47));
-        temp.add(new KeyModel(58, "" + (char) 58));
-        temp.add(new KeyModel(59, "" + (char) 59));
-        temp.add(new KeyModel(60, "" + (char) 60));
-        temp.add(new KeyModel(61, "" + (char) 61));
-        temp.add(new KeyModel(62, "" + (char) 62));
-        temp.add(new KeyModel(63, "" + (char) 63));
-        temp.add(new KeyModel(64, "" + (char) 64));
-        temp.add(new KeyModel(91, "" + (char) 91));
-        temp.add(new KeyModel(92, "" + (char) 92));
-        temp.add(new KeyModel(93, "" + (char) 93));
-        temp.add(new KeyModel(94, "" + (char) 94));
-        temp.add(new KeyModel(95, "" + (char) 95));
-        temp.add(new KeyModel(96, "" + (char) 96));
-        temp.add(new KeyModel(123, "" + (char) 123));
-        temp.add(new KeyModel(124, "" + (char) 124));
-        temp.add(new KeyModel(125, "" + (char) 125));
-        temp.add(new KeyModel(126, "" + (char) 126));
-
-        // 取数
-        Random rand = new Random();
-        for (int i = 0; i < count; i++) {
-            int num = rand.nextInt(count - i);
-            resultList.add(new KeyModel(temp.get(num).getCode(), temp.get(num)
-                    .getLable()));
-            temp.remove(num);
-        }
-        for (int i = 0; i < newkeyList.size(); i++) {
-            newkeyList.get(i).label = resultList.get(i).getLable();
-            newkeyList.get(i).codes[0] = resultList.get(i).getCode();
-        }
-
         keyboardView.setKeyboard(keyPun);
     }
 

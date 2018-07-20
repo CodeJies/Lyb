@@ -65,9 +65,8 @@
         android:keyTextSize="@dimen/font_size_medium"
         android:shadowColor="@null"
         android:shadowRadius="0.0"
-
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"></android.inputmethodservice.KeyboardView>
+        app:layout_constraintStart_toStartOf="parent"/>
 </android.support.constraint.ConstraintLayout>

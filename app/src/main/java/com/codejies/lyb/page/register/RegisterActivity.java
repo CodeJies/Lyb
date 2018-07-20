@@ -1,5 +1,8 @@
 package com.codejies.lyb.page.register;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -28,8 +31,10 @@ public class RegisterActivity extends BaseActivity<RegisterContact.RegisterPrese
     boolean isPhoneTrue;
     boolean isPasswordTrue;
     @Override
-    protected int setLayoutId() {
-        return R.layout.activity_register;
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+        setImmersiveStatusBar(false,R.color.color_dark);
     }
 
     @Override

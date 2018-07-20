@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">LybWidget</string>
+    <string name="recycle_loading">数据加载中</string>
+    <string name="recycle_loading_done">数据加载完成</string>
+    <string name="recycle_loading_nodata">没有更多数据</string>
+
+</resources>
