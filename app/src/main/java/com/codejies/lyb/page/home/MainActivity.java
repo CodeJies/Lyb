@@ -14,15 +14,21 @@ import com.codejies.lyb.base.BaseActivity;
 import com.codejies.lyb.base.BaseContact;
 import com.codejies.lyb.widgets.LybEditText;
 import com.codejies.lybwidget.widget.LybRecycleView;
+import com.codejies.lybwidget.widget.draglayout.DragLayout;
 import com.codejies.lybwidget.widget.lybrecyclerview.LybLoadingListener;
+import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 
-public class MainActivity extends BaseActivity implements LybLoadingListener {
+public class MainActivity extends BaseActivity implements LybLoadingListener, DragLayout.DragListener {
+    @BindView(R.id.main_drawer)
+    DragLayout drawerLayout;
     @BindView(R.id.main_list)
     LybRecycleView list;
+    @BindView(R.id.main_top_drawer_open)
+    ImageView drawerOpen;
     LybEditText edittext;
     ArrayList<String> datas = new ArrayList<>();
     MyAdapter myAdapter;
@@ -32,6 +38,7 @@ public class MainActivity extends BaseActivity implements LybLoadingListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSwipeBackEnable(false);
     }
 
     @Override
@@ -55,6 +62,7 @@ public class MainActivity extends BaseActivity implements LybLoadingListener {
         edittext=editView.findViewById(R.id.edittext);
         myAdapter = new MyAdapter(datas);
         list.setAdapter(myAdapter);
+
         edittext.setChangeErrorListener(new LybEditText.onTextChangeErrorListener() {
             @Override
             public void sendErrorMsg(String error) {
@@ -66,6 +74,13 @@ public class MainActivity extends BaseActivity implements LybLoadingListener {
 
             }
         });
+        drawerOpen.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.open();
+            }
+        });
+        drawerLayout.setDragListener(this);
     }
 
     @Override
@@ -113,5 +128,19 @@ public class MainActivity extends BaseActivity implements LybLoadingListener {
             }, 1000);
         }
         times++;
+    }
+
+    @Override
+    public void onOpen() {
+    }
+
+    @Override
+    public void onClose() {
+
+    }
+
+    @Override
+    public void onDrag(float percent) {
+        ViewHelper.setAlpha(drawerOpen, 1 - percent);
     }
 }
