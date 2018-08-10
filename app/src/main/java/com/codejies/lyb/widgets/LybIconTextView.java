@@ -20,7 +20,7 @@ public class LybIconTextView extends android.support.v7.widget.AppCompatTextView
     int highLightColor;
     int defaultColor;
     int direction = 0;
-    boolean isHightLight = false;
+    boolean isHightLight = true;//初始化为true 实例化的时候直接调用方法改为false
 
     public LybIconTextView(Context context) {
         this(context, null);
@@ -57,7 +57,7 @@ public class LybIconTextView extends android.support.v7.widget.AppCompatTextView
         }
         setTextColor(defaultColor);
         setGravity(Gravity.CENTER_VERTICAL);
-
+        changeIconState();
     }
 
 
@@ -68,6 +68,12 @@ public class LybIconTextView extends android.support.v7.widget.AppCompatTextView
             isHightLight = true;
         }
 
+        changeIconState(isHightLight);
+
+    }
+
+    public void changeIconState(boolean state){
+        isHightLight=state;
         switch (direction) {
             case 0:
                 if (isHightLight) {
@@ -102,7 +108,6 @@ public class LybIconTextView extends android.support.v7.widget.AppCompatTextView
                 }
                 break;
         }
-
     }
 
 }

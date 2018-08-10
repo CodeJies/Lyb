@@ -2,12 +2,11 @@ package com.codejies.lyb.page.home;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.codejies.lyb.R;
 import com.codejies.lyb.base.BaseActivity;
@@ -48,7 +47,7 @@ public class MainActivity extends BaseActivity implements LybLoadingListener, Dr
 
     @Override
     protected void initView() {
-
+        setImmersiveStatusBar(true, ContextCompat.getColor(this, R.color.color_yellow));
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         list.setLayoutManager(manager);
@@ -56,24 +55,9 @@ public class MainActivity extends BaseActivity implements LybLoadingListener, Dr
         for (int i = 0; i < 10; i++) {
             datas.add("item:" + i);
         }
-        View editView=LayoutInflater.from(this).inflate(R.layout.home_test_edit,null);
-        list.addHeaderView(LayoutInflater.from(this).inflate(R.layout.dialog_loading,null));
-        list.addHeaderView(editView);
-        edittext=editView.findViewById(R.id.edittext);
         myAdapter = new MyAdapter(datas);
         list.setAdapter(myAdapter);
 
-        edittext.setChangeErrorListener(new LybEditText.onTextChangeErrorListener() {
-            @Override
-            public void sendErrorMsg(String error) {
-                Toast.makeText(MainActivity.this,"error"+error,Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void vaildSuccess() {
-
-            }
-        });
         drawerOpen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -82,6 +66,7 @@ public class MainActivity extends BaseActivity implements LybLoadingListener, Dr
         });
         drawerLayout.setDragListener(this);
     }
+
 
     @Override
     public void onRefresh() {
@@ -141,6 +126,11 @@ public class MainActivity extends BaseActivity implements LybLoadingListener, Dr
 
     @Override
     public void onDrag(float percent) {
-        ViewHelper.setAlpha(drawerOpen, 1 - percent);
+        if(percent==1){
+            drawerOpen.setImageResource(R.mipmap.icon_meun_select);
+        }else if(percent==0){
+            drawerOpen.setImageResource(R.mipmap.icon_meun_default);
+        }
+
     }
 }
