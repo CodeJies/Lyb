@@ -36,7 +36,7 @@ public class RegisterPresenter  extends BasePresenter<RegisterContact.RegisterVi
                 .flatMap(new Function<BaseResult<RegisterResponse>, ObservableSource<BaseResult<LoginResponse>>>() {
                     @Override
                     public ObservableSource<BaseResult<LoginResponse>> apply(BaseResult<RegisterResponse> registerResponseBaseResult) throws Exception {
-                        if(registerResponseBaseResult.getErrorCode()==0){
+                        if(registerResponseBaseResult.getCode()==200){
                             return model.login(new LoginRequest(view.getPhone(),view.getPassword())).compose(RegisterPresenter.this.<BaseResult<LoginResponse>>Schedules());
                         }else{
                             return null;

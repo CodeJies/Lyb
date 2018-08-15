@@ -28,10 +28,10 @@ public class BaseObserve<T> implements Observer<BaseResult<T>> {
     @Override
     public void onNext(BaseResult<T> t) {
         Log.e("RequestResult", new Gson().toJson(t));
-        if (t.getErrorCode() == 0) {
-            responseListener.onSuccess((T) t.getData());
+        if (t.getCode() == 200) {
+            responseListener.onSuccess((T) t.getResult());
         } else {
-            responseListener.onFail(t.getErrorMsg());
+            responseListener.onFail(t.getMsg());
         }
     }
 

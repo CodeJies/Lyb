@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.codejies.lyb.R;
+import com.codejies.lyb.utils.ScreenTool;
 
 /**
  * Created by Jies on 2018/8/10.
@@ -31,11 +32,11 @@ public class LybMenuLayout extends LinearLayout implements View.OnClickListener 
         view = (ConstraintLayout) LayoutInflater.from(getContext()).inflate(R.layout.meun_drawer_layout, null);
         addView(view);
         LayoutParams layoutParams = (LayoutParams) view.getLayoutParams();
-        layoutParams.width = LayoutParams.WRAP_CONTENT;
+        layoutParams.width = ScreenTool.getScreenWidth(getContext()) / 2;
         layoutParams.height = LayoutParams.MATCH_PARENT;
         for (int i = 0; i < view.getChildCount(); i++) {
             view.getChildAt(i).setOnClickListener(this);
-            if(view.getChildAt(i).getId()==R.id.item_story){
+            if (view.getChildAt(i).getId() == R.id.item_meizi) {
                 onClick(view.getChildAt(i));
             }
         }
@@ -56,15 +57,22 @@ public class LybMenuLayout extends LinearLayout implements View.OnClickListener 
         }
 
         if (itemListener != null) {
-            itemListener.onClick(v);
+            itemListener.onMenuItemClick(v.getId());
         }
     }
 
-    OnClickListener itemListener;
+    OnMenuItemClickLitener itemListener;
 
-    public void setOnClickListener(View.OnClickListener listener) {
+    public void setMeunItemClickListener(OnMenuItemClickLitener listener) {
         this.itemListener = listener;
+        for (int i = 0; i < view.getChildCount(); i++) {
+            if (view.getChildAt(i).getId() == R.id.item_meizi) {
+                onClick(view.getChildAt(i));
+            }
+        }
     }
 
-
+    public interface OnMenuItemClickLitener {
+        void onMenuItemClick(int Id);
+    }
 }

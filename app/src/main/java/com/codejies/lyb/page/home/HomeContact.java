@@ -1,6 +1,7 @@
 package com.codejies.lyb.page.home;
 
 import com.codejies.lyb.base.BaseContact;
+import com.codejies.lyb.page.home.meizi.MeiziFragment;
 
 /**
  * Created by Jies on 2018/7/20.
@@ -8,14 +9,15 @@ import com.codejies.lyb.base.BaseContact;
 
 public interface HomeContact {
     interface view extends BaseContact.baseView {
+        MeiziFragment getMeiziFragment();
 
+        void replaceFragment(int menuId);
     }
 
     interface model {
 
     }
 
-    interface presenter {
-
+    interface presenter extends BaseContact.basePresenter {
     }
 }

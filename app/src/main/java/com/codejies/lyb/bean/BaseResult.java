@@ -5,31 +5,31 @@ package com.codejies.lyb.bean;
  */
 
 public class BaseResult<T> {
-    int errorCode;
-    String errorMsg;
-    T data;
+    int code;
+    String msg;
+    T result;
 
-    public int getErrorCode() {
-        return errorCode;
+    public int getCode() {
+        return code;
     }
 
-    public void setErrorCode(int errorCode) {
-        this.errorCode = errorCode;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public String getErrorMsg() {
-        return errorMsg;
+    public String getMsg() {
+        return msg;
     }
 
-    public void setErrorMsg(String errorMsg) {
-        this.errorMsg = errorMsg;
+    public void setMsg(String msg) {
+        this.msg = msg;
     }
 
-    public T getData() {
-        return data;
+    public T getResult() {
+        return result;
     }
 
-    public void setData(T datas) {
-        this.data = datas;
+    public void setResult(T result) {
+        this.result = result;
     }
 }

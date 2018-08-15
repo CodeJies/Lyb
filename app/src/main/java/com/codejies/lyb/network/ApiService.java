@@ -1,6 +1,7 @@
 package com.codejies.lyb.network;
 
 import com.codejies.lyb.bean.BaseResult;
+import com.codejies.lyb.bean.HomeMeiziResult;
 import com.codejies.lyb.bean.LoginRequest;
 import com.codejies.lyb.bean.LoginResponse;
 import com.codejies.lyb.bean.RegisterRequest;
@@ -8,9 +9,12 @@ import com.codejies.lyb.bean.RegisterResponse;
 import com.codejies.lyb.bean.SplashDataResult;
 import com.codejies.lyb.bean.SplashResponse;
 
+import java.util.List;
+
 import io.reactivex.Observable;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
+import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -29,4 +33,8 @@ public interface ApiService {
 
     @POST("app/splash")
     Observable<BaseResult<SplashResponse>> getSplash();
+
+    @FormUrlEncoded
+    @POST("jiandan/jiandan/getMeiziList")
+    Observable<BaseResult<List<String>>> getMeiziList(@Field("pageIndex") int index);
 }

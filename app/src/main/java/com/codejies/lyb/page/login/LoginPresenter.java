@@ -23,7 +23,8 @@ public class LoginPresenter extends BasePresenter<LoginContact.view> implements 
 
     @Override
     public void login() {
-        model.login(new LoginRequest(view.getPhone(),view.getPassword())).compose(this.<BaseResult<LoginResponse>>Schedules()).subscribe(new BaseObserve<LoginResponse>(new BaseObserve.ResponseListener<LoginResponse>() {
+        model.login(new LoginRequest(view.getPhone(),view.getPassword())).compose(this.<BaseResult<LoginResponse>>Schedules())
+                .subscribe(new BaseObserve<LoginResponse>(new BaseObserve.ResponseListener<LoginResponse>() {
             @Override
             public void onSuccess(LoginResponse loginResponse) {
                 Log.e("Login","success:"+loginResponse.toString());
