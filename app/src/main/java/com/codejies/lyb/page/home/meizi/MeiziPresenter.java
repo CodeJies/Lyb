@@ -4,9 +4,8 @@ import android.util.Log;
 
 import com.codejies.lyb.base.BasePresenter;
 import com.codejies.lyb.bean.BaseResult;
+import com.codejies.lyb.bean.MeiziResult;
 import com.codejies.lyb.network.BaseObserve;
-
-import java.util.List;
 
 import io.reactivex.disposables.Disposable;
 
@@ -23,12 +22,12 @@ public class MeiziPresenter extends BasePresenter<MeiziContact.view> implements 
 
     @Override
     public void getMeiziData(int pageIndex) {
-        model.getMeiziList(pageIndex).compose(this.<BaseResult<List<String>>>Schedules()).subscribe(new BaseObserve<List<String>>(new BaseObserve.ResponseListener<List<String>>() {
+        model.getMeiziList(pageIndex).compose(this.<BaseResult<MeiziResult>>Schedules()).subscribe(new BaseObserve<MeiziResult>(new BaseObserve.ResponseListener<MeiziResult>() {
             @Override
-            public void onSuccess(List<String> homeMeiziResults) {
+            public void onSuccess(MeiziResult homeMeiziResults) {
                 view.getRecycleView().refreshComplete();
                 view.getRecycleView().loadMoreComplete();
-                view.getAdapter().addList(homeMeiziResults);
+                view.getAdapter().addList(homeMeiziResults.getData());
             }
 
             @Override

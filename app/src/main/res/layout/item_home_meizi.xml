@@ -7,5 +7,6 @@
         android:id="@+id/item_home_meizi_iv"
         android:layout_width="wrap_content"
         android:scaleType="centerCrop"
+        android:transitionName="showDetailMeizi"
         android:layout_height="wrap_content" />
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.codejies.lyb.page.home.meizi;
 
 import com.codejies.lyb.bean.BaseResult;
+import com.codejies.lyb.bean.MeiziResult;
 import com.codejies.lyb.network.LybApiManager;
 
 import java.util.List;
@@ -14,7 +15,7 @@ import io.reactivex.Observable;
 
 public class MeiziModel implements MeiziContact.model {
     @Override
-    public Observable<BaseResult<List<String>>> getMeiziList(int index) {
+    public Observable<BaseResult<MeiziResult>> getMeiziList(int index) {
         return LybApiManager.getApiService().getMeiziList(index);
     }
 }

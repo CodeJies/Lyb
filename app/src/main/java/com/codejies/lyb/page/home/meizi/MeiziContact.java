@@ -2,9 +2,8 @@ package com.codejies.lyb.page.home.meizi;
 
 import com.codejies.lyb.base.BaseContact;
 import com.codejies.lyb.bean.BaseResult;
+import com.codejies.lyb.bean.MeiziResult;
 import com.codejies.lybwidget.widget.LybRecycleView;
-
-import java.util.List;
 
 import io.reactivex.Observable;
 
@@ -20,7 +19,7 @@ public interface MeiziContact {
     }
 
     interface model {
-        Observable<BaseResult<List<String>>> getMeiziList(int index);
+        Observable<BaseResult<MeiziResult>> getMeiziList(int index);
     }
 
     interface presenter extends BaseContact.basePresenter{

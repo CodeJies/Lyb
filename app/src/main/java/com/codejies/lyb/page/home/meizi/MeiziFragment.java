@@ -4,6 +4,7 @@ import android.support.v7.widget.GridLayoutManager;
 
 import com.codejies.lyb.R;
 import com.codejies.lyb.base.BaseFragment;
+import com.codejies.lyb.bean.MeiziResult;
 import com.codejies.lybwidget.widget.LybRecycleView;
 import com.codejies.lybwidget.widget.lybrecyclerview.LybLoadingListener;
 
@@ -22,7 +23,7 @@ public class MeiziFragment extends BaseFragment<MeiziContact.presenter> implemen
 
     MeiziRecyclerAdapter adapter;
 
-    List<String> datas = new ArrayList<>();
+    List<MeiziResult.Meizi> datas = new ArrayList<>();
     int index = 1;
 
     static MeiziFragment fragment = null;

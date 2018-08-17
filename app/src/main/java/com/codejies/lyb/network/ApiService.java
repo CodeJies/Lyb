@@ -4,6 +4,7 @@ import com.codejies.lyb.bean.BaseResult;
 import com.codejies.lyb.bean.HomeMeiziResult;
 import com.codejies.lyb.bean.LoginRequest;
 import com.codejies.lyb.bean.LoginResponse;
+import com.codejies.lyb.bean.MeiziResult;
 import com.codejies.lyb.bean.RegisterRequest;
 import com.codejies.lyb.bean.RegisterResponse;
 import com.codejies.lyb.bean.SplashDataResult;
@@ -35,6 +36,6 @@ public interface ApiService {
     Observable<BaseResult<SplashResponse>> getSplash();
 
     @FormUrlEncoded
-    @POST("jiandan/jiandan/getMeiziList")
-    Observable<BaseResult<List<String>>> getMeiziList(@Field("pageIndex") int index);
+    @POST("jiandan/jiandan/imgList")
+    Observable<BaseResult<MeiziResult>> getMeiziList(@Field("page") int index);
 }
