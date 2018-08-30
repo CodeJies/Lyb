@@ -4,14 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/root"
     tools:context="com.codejies.lyb.page.home.meizi.MeiziDetailActivity">
+
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <com.codejies.lyb.widgets.LybFullFitImageView
-        android:id="@+id/meizi_detail_iv"
-        android:layout_width="match_parent"
-        android:transitionName="showDetailMeizi"
-        android:layout_height="wrap_content" />
+        android:layout_height="match_parent">
+
+        <com.codejies.lyb.widgets.LybFullFitImageView
+            android:id="@+id/meizi_detail_iv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:transitionName="showDetailMeizi" />
     </ScrollView>
 </android.support.constraint.ConstraintLayout>

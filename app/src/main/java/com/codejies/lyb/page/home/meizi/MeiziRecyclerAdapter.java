@@ -10,11 +10,13 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.codejies.lyb.R;
 import com.codejies.lyb.base.adapter.LybRecyclerViewAdapter;
 import com.codejies.lyb.base.adapter.LybViewHolder;
 import com.codejies.lyb.bean.MeiziResult;
+import com.codejies.lyb.utils.GlideUtils;
 import com.codejies.lyb.utils.ScreenTool;
 
 import java.util.List;
@@ -30,19 +32,13 @@ public class MeiziRecyclerAdapter extends LybRecyclerViewAdapter<MeiziResult.Mei
     }
 
     @Override
-    protected void bindData(final LybViewHolder holder, final  MeiziResult.Meizi data) {
-        RequestOptions options=new RequestOptions().override(ScreenTool.getScreenWidth(mContext)/2,ScreenTool.getScreenWidth(mContext)/2);
-        Glide.with(mContext).asBitmap().load(data.getPath()).apply(options).into((ImageView) holder.getView(R.id.item_home_meizi_iv));
+    protected void bindData(final LybViewHolder holder, final MeiziResult.Meizi data) {
+        Glide.with(mContext).asBitmap().load(data.getPath()).apply(GlideUtils.getDefaultOptions(ScreenTool.getScreenWidth(mContext))).into((ImageView) holder.getView(R.id.item_home_meizi_iv));
         holder.getView(R.id.item_home_meizi_iv).setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent();
-                intent.setClass(mContext,MeiziDetailActivity.class);
-                intent.putExtra("url",data.getPath());
-                mContext.startActivity(intent, ActivityOptions.makeSceneTransitionAnimation((Activity) mContext,
-                        holder.getView(R.id.item_home_meizi_iv),"showDetailMeizi").toBundle());
-
+                MeiziDetailActivity.openThisActivity(mContext, data.getPath(), holder.getView(R.id.item_home_meizi_iv));
             }
         });
     }

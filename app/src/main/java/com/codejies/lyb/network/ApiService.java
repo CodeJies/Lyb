@@ -36,6 +36,6 @@ public interface ApiService {
     Observable<BaseResult<SplashResponse>> getSplash();
 
     @FormUrlEncoded
-    @POST("jiandan/jiandan/imgList")
+    @POST("jiandan/Meizi/getMeiziList")
     Observable<BaseResult<MeiziResult>> getMeiziList(@Field("page") int index);
 }

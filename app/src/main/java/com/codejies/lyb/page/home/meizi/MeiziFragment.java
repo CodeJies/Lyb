@@ -1,5 +1,6 @@
 package com.codejies.lyb.page.home.meizi;
 
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 
 import com.codejies.lyb.R;
@@ -35,8 +36,9 @@ public class MeiziFragment extends BaseFragment<MeiziContact.presenter> implemen
         recycleView_meizi.setLybLoadingListener(this);
         adapter = new MeiziRecyclerAdapter(getContext(), datas, R.layout.item_home_meizi);
         recycleView_meizi.setAdapter(adapter);
-
+        onRefresh();
     }
+
 
     @Override
     protected int setLayout() {

@@ -17,8 +17,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LybApiManager {
     private Retrofit retrofit;
-    private static final String BASEURL="http://10.0.2.2/";
+//    private static final String BASEURL="http://10.0.2.2/";
     private static final long DEFAULTTIMEOUT = 100000;
+    private static final String BASEURL="http://192.168.3.8/";
+
     private ApiService apiService;
 
     public LybApiManager() {

@@ -19,3 +19,7 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+#Glide 混淆
+-keepnames class com.codejies.lyb.utils.LybGlideModule
+-keepresourcexmlelements manifest/application/meta-data@value=GlideModule
